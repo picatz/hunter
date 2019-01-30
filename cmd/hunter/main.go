@@ -41,7 +41,7 @@ func main() {
 		Long:  "SEARCH\nDocumentation Taken From: https://hunter.io/api/v2/docs#domain-search \n\nSearch all the email addresses corresponding to one website or compan.\n\nEach response will return up to 100 emails. Use the `--offset` flag to get all of them. A new query is counted for calls returning at least one result.\n\nThe number of sources is limited to 20 for each email address. The `extracted_on` attribute of a source contains the date it was found for the first time, whereas the `last_seen_on` attribute contains the date it was found for the last time.\n\ntype returns the value `personal` or `generic`. A `generic` email address is a role-based email address, like contact@hunter.io. On the contrary, a `personal` email address is the address of someone in the company.\n\n`confidence` is our estimation of the probability the email address returned is correct. It depends on several criteria such as the number and quality of sources.\n\nNote that this API call is rate limited to 15 requests per second.\n\n* You must send at least the domain name or the company name. You can also send both.\n\n",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
-			params := map[string]string{
+			params := hunter.Params{
 				"domain":     cmdSearchDomainFlag,
 				"company":    cmdSearchCompanyFlag,
 				"limit":      cmdSearchLimitFlag,
@@ -87,7 +87,7 @@ func main() {
 		Long:  "FIND\nDocumentation Taken From: https://hunter.io/api/v2/docs#email-finder \n\nGenerates or retrieves the most likely email address from a domain name, a first name and a last name.\n\nThe score returned is an estimation of the probability the email generated is correct.\n\nIf we have found the retrieved email address somewhere on the web, we display the sources here. The number of sources is limited to 20. The extracted_on attribute contains the date it was found for the first time, whereas the last_seen_on attribute contains the date it was found for the last time.\n\n* You must send at least the domain name or the company name. You can also send both.\n\n** You must send at least the first name and the last name or the full name.\nThe score returned is an estimation of the probability the email generated is correct.\n\nIf we have found the retrieved email address somewhere on the web, we display the sources here. The number of sources is limited to 20. The `extracted_on attribute` contains the date it was found for the first time, whereas the `last_seen_on` attribute contains the date it was found for the last time.\n\n",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
-			params := map[string]string{
+			params := hunter.Params{
 				"domain":     cmdFindDomainFlag,
 				"company":    cmdFindCompanyFlag,
 				"first_name": cmdFindFirstNameFlag,
@@ -132,7 +132,7 @@ func main() {
 		Long:  "VERIFY\nDocumentation Taken From: https://hunter.io/api/v2/docs#email-verifier \n\nHunter focuses on B2B. Therefore, webmails are not verified. We'll run every check but won't reach the remote SMTP server.\n\nThis endpoint is rate-limited by domain name. You can check up to 200 email addresses for a domain name every 24 hours. You can check the number of requests remaining using the X-RateLimit-Remaining header.\n\nThe request will run for 20 seconds. If it was not able to provide a response in time, we will return a 202 status code. You will then be able to poll the same endpoint to get the verification's result. Of course, all the requests in this case are counted only once.\n\n\nReading Results:\n`score` is the deliverability score we give to the email address.\n`regexp` is true if the email address passes our regular expression.\n`gibberish` is true if we find this is an automatically generated email address (for example `e65rc109q@company.com`).\n`disposable` is true if we find this is an email address from a disposable email service.\n`webmail` is true if we find this is an email from a webmail (for example Gmail).\n`mx_records` is true if we find MX records exist on the domain of the given email address.\n`smtp_server` is true if we connect to the SMTP server successfully.\n`smtp_check` is true if the email address doesn't bounce.\n`accept_all` is true if the SMTP server accepts all the email addresses. It means you can have have false positives on SMTP checks.\n`block` is true if the SMTP server prevented us to perform the STMP check.\n`sources` If we have found the given email address somewhere on the web, we display the sources here. The number of sources is limited to 20.\n`extracted_on` contains the date it was found for the first time.\n`last_seen_on` contains the date it was found for the last time.\n\n",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
-			params := map[string]string{
+			params := hunter.Params{
 				"email": cmdVerifyEmailFlag,
 			}
 			if params["email"] == "" {
