@@ -34,7 +34,6 @@ func New(key string, client *http.Client) *Client {
 	return &Client{Key: key, client: client}
 }
 
-// New returns a Client object.
 func (c *Client) request(ctx context.Context, path string, params Params) ([]byte, error) {
 	req, err := http.NewRequest(http.MethodGet, path, nil)
 	if err != nil {
