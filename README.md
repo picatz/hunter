@@ -180,7 +180,7 @@ func main() {
     // create a new client using the HUNTER_API_KEY environment variable
     // and the default net/http client
     client := hunter.New(hunter.UseDefaultEnvVariable, hunter.UseDefaultHTTPClient)
-    // verify emails
+    // verify email
     result, err := client.VerifyEmail(hunter.Params{
         "email": "stevejobs@apple.com",
     })
@@ -236,7 +236,7 @@ func main() {
     // create a new client using the HUNTER_API_KEY environment variable
     // and the default net/http client
     client := hunter.New(hunter.UseDefaultEnvVariable, hunter.UseDefaultHTTPClient)
-    // find email
+    // domain search
     results, err := client.DomainSearch(hunter.Params{"domain": "stripe.com"})
     // handle error
     if err != nil {
