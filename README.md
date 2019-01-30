@@ -163,3 +163,86 @@ $ hunter verify --email stevejobs@apple.com
   }
 }
 ```
+
+## Golang Client Usage
+
+We can use the `VerifyEmail` method on a `*hunter.Client` to verify a given email.
+
+```golang
+package main
+
+import (
+    "fmt"
+    "github.com/picatz/hunter"
+)
+
+func main() {
+    // create a new client using the HUNTER_API_KEY environment variable
+    // and the default net/http client
+    client := hunter.New(hunter.UseDefaultEnvVariable, hunter.UseDefaultHTTPClient)
+    // verify emails
+    result, err := client.VerifyEmail(hunter.Params{
+        "email": "stevejobs@apple.com",
+    })
+    // handle error
+    if err != nil {
+        panic(err)
+    }
+    // do something with the result data
+    fmt.Println(result.Data.Score)
+}
+```
+
+We can use the `FindEmail` method on a `*hunter.Client` to generate or retrieve the most likely email address from a domain name, a first name and a last name (or a full name).
+
+```golang
+package main
+
+import (
+    "fmt"
+    "github.com/picatz/hunter"
+)
+
+func main() {
+    // create a new client using the HUNTER_API_KEY environment variable
+    // and the default net/http client
+    client := hunter.New(hunter.UseDefaultEnvVariable, hunter.UseDefaultHTTPClient)
+    // find email
+    results, err := client.FindEmail(hunter.Params{
+        "domain":     "asana.com",
+        "first_name": "Dustin",
+        "last_name":  "Moskovitz",
+    })
+    // handle error
+    if err != nil {
+        panic(err)
+    }
+    // do something with the result data
+    fmt.Println(result.Data.Score)
+}
+```
+
+We can use the `DomainSearch` method on a `*hunter.Client`, where you give one domain name (or company name) and it returns all the email addresses found by [hunter.io](https://hunter.io) on the internet matching it.
+
+```golang
+package main
+
+import (
+    "fmt"
+    "github.com/picatz/hunter"
+)
+
+func main() {
+    // create a new client using the HUNTER_API_KEY environment variable
+    // and the default net/http client
+    client := hunter.New(hunter.UseDefaultEnvVariable, hunter.UseDefaultHTTPClient)
+    // find email
+    results, err := client.DomainSearch(hunter.Params{"domain": "stripe.com"})
+    // handle error
+    if err != nil {
+        panic(err)
+    }
+    // do something with the result data
+    fmt.Println(result.Data)
+}
+```
