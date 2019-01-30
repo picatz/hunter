@@ -1,6 +1,6 @@
 # `hunter`
 
-This is a go client library and command-line application to interact with [hunter.io](https://hunter.io) API.
+Command-line application and golang client library for [hunter.io](https://hunter.io).
 
 ## Download
 
