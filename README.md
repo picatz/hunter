@@ -5,6 +5,12 @@ Command-line application and golang client library for [hunter.io](https://hunte
 ## Download
 
 ```console
+$ go get github.com/picatz/hunter/...
+```
+
+## Update
+
+```console
 $ go get -u github.com/picatz/hunter/...
 ```
 
