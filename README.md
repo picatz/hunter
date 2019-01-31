@@ -24,6 +24,7 @@ Usage:
   hunter [command]
 
 Available Commands:
+  account     Get information regarding your hunter.io account
   find        Generates or retrieves the most likely email address from a domain name, a first name and a last name
   help        Help about any command
   search      Search all the email addresses corresponding to one website or company
