@@ -47,7 +47,7 @@ khightower@google.com
 ```
 
 ```console
-$ hunter search search --domain github.com --department it | jq -r '.data.emails[] | "\(.value) \(.position)"'
+$ hunter search --domain github.com --department it | jq -r '.data.emails[] | "\(.value) \(.position)"'
 jbarnette@github.com Developer
 bkeepers@github.com Developer
 ben.balter@github.com Developer Product Manager
