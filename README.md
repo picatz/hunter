@@ -58,6 +58,17 @@ kevin@github.com Developer
 don@github.com Developer
 john@github.com Developer
 scott@github.com Developer
+$ hunter search --domain github.com --department it --offset 10 | jq -r '.data.emails[] | "\(.value) \(.position)"'
+patchwork@github.com Developer
+chris@github.com Developer
+tom@github.com Developer
+octocat@github.com Developer
+dahlbyk@github.com 
+isaacs@github.com Developer
+alis@github.com Developer
+michaeldrogalis@github.com Developer
+x-oauth-basic@github.com Developer
+jonjagger@github.com 
 ```
 
 ### `search`
