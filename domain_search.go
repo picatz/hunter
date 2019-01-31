@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"net/http"
 )
 
 // DomainSearchResult is returned by the DomainSearch function.
@@ -54,7 +55,10 @@ type DomainSearchResult struct {
 // and it returns all the email addresses using this domain name
 // found by https://hunter.io/ on the internet.
 func (c *Client) DomainSearch(params Params) (*DomainSearchResult, error) {
-	body, err := c.request(context.Background(), "https://api.hunter.io/v2/domain-search", params)
+	body, err := c.request(context.Background(), http.MethodGet, "https://api.hunter.io/v2/domain-search", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(DomainSearchResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
@@ -70,7 +74,10 @@ func (c *Client) DomainSearch(params Params) (*DomainSearchResult, error) {
 // This context-based version of the function would be more suitable for long-running
 // applications like servers.
 func (c *Client) DomainSearchWithContext(ctx context.Context, params Params) (*DomainSearchResult, error) {
-	body, err := c.request(ctx, "https://api.hunter.io/v2/domain-search", params)
+	body, err := c.request(ctx, http.MethodGet, "https://api.hunter.io/v2/domain-search", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(DomainSearchResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
