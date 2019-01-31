@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"net/http"
 )
 
 // EmailFinderResult is returned by the FindEmail function.
@@ -41,7 +42,10 @@ type EmailFinderResult struct {
 // FindEmail generates or retrieves the most likely
 // email address from a domain name, a first name and a last name.
 func (c *Client) FindEmail(params Params) (*EmailFinderResult, error) {
-	body, err := c.request(context.Background(), "https://api.hunter.io/v2/email-finder", params)
+	body, err := c.request(context.Background(), http.MethodGet, "https://api.hunter.io/v2/email-finder", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(EmailFinderResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
@@ -53,7 +57,10 @@ func (c *Client) FindEmail(params Params) (*EmailFinderResult, error) {
 // FindEmailWithContext generates or retrieves the most likely
 // email address from a domain name, a first name and a last name.
 func (c *Client) FindEmailWithContext(ctx context.Context, params Params) (*EmailFinderResult, error) {
-	body, err := c.request(ctx, "https://api.hunter.io/v2/email-finder", params)
+	body, err := c.request(ctx, http.MethodGet, "https://api.hunter.io/v2/email-finder", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(EmailFinderResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
