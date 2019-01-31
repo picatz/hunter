@@ -56,6 +56,9 @@ func (c *Client) FindEmail(params Params) (*EmailFinderResult, error) {
 
 // FindEmailWithContext generates or retrieves the most likely
 // email address from a domain name, a first name and a last name.
+//
+// This context-based version of the function would be more suitable for long-running
+// applications like servers.
 func (c *Client) FindEmailWithContext(ctx context.Context, params Params) (*EmailFinderResult, error) {
 	body, err := c.request(ctx, http.MethodGet, "https://api.hunter.io/v2/email-finder", params)
 	if err != nil {
