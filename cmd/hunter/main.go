@@ -25,6 +25,24 @@ func main() {
 
 	client := hunter.New(hunter.UseDefaultEnvVariable, hunter.UseDefaultHTTPClient)
 
+	var cmdAccount = &cobra.Command{
+		Use:   "account",
+		Short: "Get information regarding your hunter.io account",
+		Long:  "ACCOUNT\nDocumentation Taken From: https://hunter.io/api/v2/docs#account \n\nEnables you to get information regarding your Hunter account at any time. This API call is free.\n\n",
+		Args:  cobra.NoArgs,
+		Run: func(cmd *cobra.Command, args []string) {
+			result, err := client.Account()
+			if err != nil {
+				panic(err)
+			}
+			json, err := json.Marshal(result)
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(string(json))
+		},
+	}
+
 	var (
 		cmdSearchDomainFlag     string
 		cmdSearchCompanyFlag    string
