@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"net/http"
 )
 
 // EmailVerifierResult is returned by the VerifyEmail function.
@@ -38,7 +39,10 @@ type EmailVerifierResult struct {
 
 // VerifyEmail  allows you to verify the deliverability of an email address.
 func (c *Client) VerifyEmail(params Params) (*EmailVerifierResult, error) {
-	body, err := c.request(context.Background(), "https://api.hunter.io/v2/email-verifier", params)
+	body, err := c.request(context.Background(), http.MethodGet, "https://api.hunter.io/v2/email-verifier", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(EmailVerifierResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
@@ -49,7 +53,10 @@ func (c *Client) VerifyEmail(params Params) (*EmailVerifierResult, error) {
 
 // VerifyEmailWithContext allows you to verify the deliverability of an email address.
 func (c *Client) VerifyEmailWithContext(ctx context.Context, params Params) (*EmailVerifierResult, error) {
-	body, err := c.request(ctx, "https://api.hunter.io/v2/email-verifier", params)
+	body, err := c.request(ctx, http.MethodGet, "https://api.hunter.io/v2/email-verifier", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(EmailVerifierResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
