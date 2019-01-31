@@ -172,6 +172,7 @@ func main() {
 	cmdVerify.Flags().StringVar(&cmdVerifyEmailFlag, "email", "", "The email address you want to verify.")
 
 	var rootCmd = &cobra.Command{Use: "hunter"}
+	rootCmd.AddCommand(cmdAccount)
 	rootCmd.AddCommand(cmdSearch)
 	rootCmd.AddCommand(cmdFind)
 	rootCmd.AddCommand(cmdVerify)
