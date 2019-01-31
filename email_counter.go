@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"net/http"
 )
 
 // EmailCounterResult is returned by the CountEmails function.
@@ -40,7 +41,10 @@ type EmailCounterResult struct {
 
 // CountEmails  allows you to verify the deliverability of an email address.
 func (c *Client) CountEmails(params Params) (*EmailCounterResult, error) {
-	body, err := c.request(context.Background(), "https://api.hunter.io/v2/email-count", params)
+	body, err := c.request(context.Background(), http.MethodGet, "https://api.hunter.io/v2/email-count", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(EmailCounterResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
@@ -51,7 +55,10 @@ func (c *Client) CountEmails(params Params) (*EmailCounterResult, error) {
 
 // CountEmailsWithContext allows you to verify the deliverability of an email address.
 func (c *Client) CountEmailsWithContext(ctx context.Context, params Params) (*EmailCounterResult, error) {
-	body, err := c.request(ctx, "https://api.hunter.io/v2/email-count", params)
+	body, err := c.request(ctx, http.MethodGet, "https://api.hunter.io/v2/email-count", params)
+	if err != nil {
+		return nil, err
+	}
 	result := new(EmailCounterResult)
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
