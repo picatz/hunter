@@ -54,6 +54,9 @@ func (c *Client) CountEmails(params Params) (*EmailCounterResult, error) {
 }
 
 // CountEmailsWithContext allows you to verify the deliverability of an email address.
+//
+// This context-based version of the function would be more suitable for long-running
+// applications like servers.
 func (c *Client) CountEmailsWithContext(ctx context.Context, params Params) (*EmailCounterResult, error) {
 	body, err := c.request(ctx, http.MethodGet, "https://api.hunter.io/v2/email-count", params)
 	if err != nil {
