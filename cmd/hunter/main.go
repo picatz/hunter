@@ -85,7 +85,7 @@ func main() {
 	}
 
 	cmdSearch.Flags().StringVar(&cmdSearchDomainFlag, "domain", "", "Domain name from which you want to find the email addresses. For example, `stripe.com`.")
-	cmdSearch.Flags().StringVar(&cmdSearchCompanyFlag, "dompany", "", "The company name from which you want to find the email addresses. For example, `stripe`. Note that you'll get better results by supplying the domain name as we won't have to find it. If you send a request with both the domain and the company name, we'll use the domain name. It doesn't need to be in lowercase.")
+	cmdSearch.Flags().StringVar(&cmdSearchCompanyFlag, "company", "", "The company name from which you want to find the email addresses. For example, `stripe`. Note that you'll get better results by supplying the domain name as we won't have to find it. If you send a request with both the domain and the company name, we'll use the domain name. It doesn't need to be in lowercase.")
 	cmdSearch.Flags().StringVar(&cmdSearchLimitFlag, "limit", "10", "Specifies the max number of email addresses to return.")
 	cmdSearch.Flags().StringVar(&cmdSearchOffsetFlag, "offset", "0", "Specifies the number of email addresses to skip.")
 	cmdSearch.Flags().StringVar(&cmdSearchSeniorityFlag, "seniority", "", "Get only email addresses for people with the selected seniority level. The possible values are junior, senior or executive. Several seniority levels can be selected (delimited by a comma).")
