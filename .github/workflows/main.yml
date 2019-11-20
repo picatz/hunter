@@ -16,6 +16,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: go build -o hunter-cli -v .
-    - name: Run
-      run: ./hunter-cli --help
+      run: go build -o hunter -v .
